@@ -1,0 +1,344 @@
+
+/* Fullscreen flex container for centering */
+.generator-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: #09090b;
+}
+
+/* Inner box with gradient border and background layering */
+.generator-subcontainer {
+  border-image: linear-gradient(135deg, #00f9ff, #ff00e6);
+  background: linear-gradient(#000a14e6, #000a14e6), linear-gradient(135deg, #00f9ff33, #ff00e633);
+  border-image-slice: 1;
+  box-shadow: 0 0 10px #00f9ff4d, inset 0 0 10px #00f9ff33;
+
+  width: 90%;
+  height: fit-content;
+  padding: 20px 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Form layout with vertical spacing */
+.generator-form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 50px;
+  padding: 30px;
+}
+
+/* Basic form section with labels and input fields */
+.generator-subform {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.generator-subform label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500px;
+  color: #c084fc;
+}
+.generator-subform input {
+  background: #000;
+  border: 1px solid #ccc;
+  padding: 12px;
+  color: #aaa;
+  font-size: 16px;
+}
+
+/* Subform layout for image upload section */
+.generator-subform-image {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: baseline;
+}
+.generator-subform-image label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500px;
+  color: #c084fc;
+}
+
+/* Stylized image drop area */
+.generator-image {
+  width: 200px;
+  height: 200px;
+  border: dashed 2px white;
+  border-radius: 20px;
+  position: relative;
+}
+.generator-image span {
+  font-size: 32px;
+  color: #f5f5f5;
+  text-shadow: 0 0 4px #ff00ff, 0 0 2px #00ffe7;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Submit button styling */
+.generator-button {
+  border-image: linear-gradient(135deg, #00f9ff, #ff00e6);
+  background: linear-gradient(#000a14e6, #000a14e6), linear-gradient(135deg, #00f9ff33, #ff00e633);
+  border-image-slice: 1;
+  box-shadow: 0 0 10px #00f9ff4d, inset 0 0 10px #00f9ff33;
+  text-shadow: 0 0 4px #ff00ff, 0 0 2px #00ffe7;
+
+  max-width: 70%;
+  padding: 15px 30px;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+
+  font-size: 16px;
+  font-family: Orbitron, Audiowide, sans-serif;
+  color: #f5f5f5;
+}
+
+/* Button hover interaction */
+.generator-button:hover {
+  transform: scale(0.95);
+  box-shadow: 0 0 4px #ff00ff, 0 0 10px #00ffe7;
+  border-image: linear-gradient(135deg, #00f9ff, #ff00e6);
+}
+
+/* -------------------------- PROTOTYPE SECTION -------------------------- */
+
+/* Centering with perspective for 3D flip effect */
+.prototype-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+/* Subcontainer that flips both card faces */
+.prototype-subcontainer {
+  width: 300px;
+  height: 200px;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: twist 5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Card shared styles (front & back) */
+.prototype-card,
+.prototype-card-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 420px;
+
+  padding: 30px;
+  font-size: 16px;
+  font-family: Orbitron, Audiowide, sans-serif;
+  color: #f5f5f5;
+  backface-visibility: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-image: linear-gradient(135deg, #00f9ff, #ff00e6);
+  background: linear-gradient(#000a14e6, #000a14e6), linear-gradient(135deg, #00f9ff33, #ff00e633);
+  border-image-slice: 1;
+  box-shadow: 0 0 10px #00f9ff4d, inset 0 0 10px #00f9ff33;
+  text-shadow: 0 0 4px #ff00ff, 0 0 2px #00ffe7;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  cursor: pointer;
+}
+
+/* Customize border radii for front card */
+.prototype-card {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Customize border radii for back card */
+.prototype-card-back {
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  transform: rotateY(180deg); /* flipped by default */
+}
+
+/* Logo styling */
+.prototype-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #000;
+}
+
+/* Profile image wrapper */
+.prototype-profile-image {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.prototype-profile-image img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #000;
+}
+
+/* Info section inside profile */
+.prototype-profile-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  padding-top: 20px;
+}
+.prototype-profile-info h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
+.prototype-profile-info p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.prototype-profile-info span {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* Demo QR section (placeholder box) */
+.qr-scan-demo {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.qr-scan-demo span {
+  width: 150px;
+  height: 150px;
+  background: #000;
+}
+
+/* Flip animation */
+@keyframes twist {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+/* -ID CARD SECTION -*/
+
+.id-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.id-subcontainer {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+
+/* Shared styling for ID cards */
+.id-card,
+.id-card-back {
+  padding: 30px;
+  font-size: 16px;
+  font-family: Orbitron, Audiowide, sans-serif;
+  color: #f5f5f5;
+  width: 300px;
+  height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  border-image: linear-gradient(135deg, #00f9ff, #ff00e6);
+  background: linear-gradient(#000a14e6, #000a14e6), linear-gradient(135deg, #00f9ff33, #ff00e633);
+  border-image-slice: 1;
+  box-shadow: 0 0 10px #00f9ff4d, inset 0 0 10px #00f9ff33;
+  text-shadow: 0 0 4px #ff00ff, 0 0 2px #00ffe7;
+  border-top-left-radius: 2rem;
+  border-bottom-right-radius: 2rem;
+  cursor: pointer;
+}
+
+/* Unique corners for front */
+.id-card {
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* Unique corners for back */
+.id-card-back {
+  border-top-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+}
+
+/* QR container */
+.qr-scan {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* -RESPONSIVE -*/
+
+@media (max-width: 800px) {
+  .generator-container {
+    height: fit-content;
+    padding: 50px 0;
+  }
+
+  .prototype-subcontainer {
+    height: 500px;
+  }
+
+  .generator-subcontainer {
+    width: 95%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .id-subcontainer {
+    flex-direction: column;
+    gap: 50px;
+  }
+  .generator-form{
+    width: 100%;
+  }
+}
+
+@media (max-width: 340px) {
+  .id-card,
+  .id-card-back {
+    width: 95%;
+  }
+}
