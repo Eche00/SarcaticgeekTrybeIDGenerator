@@ -305,6 +305,17 @@
   align-items: center;
   justify-content: center;
 }
+/* download warning msg */
+.download-warning {
+  text-align: center;
+  text-shadow: 0 0 4px #ff00ff, 0 0 2px #00ffe7;
+
+
+  font-size: 16px;
+  font-family: Orbitron, Audiowide, sans-serif;
+  color: #f5f5f5;
+}
+
 
 /* -RESPONSIVE -*/
 
@@ -325,6 +336,10 @@
     flex-direction: column-reverse;
     align-items: center;
     gap: 50px;
+    border-image: transparent;
+  background: transparent;
+  border-image-slice: 1;
+  box-shadow: none;
   }
 
   .id-subcontainer {
@@ -334,6 +349,7 @@
   .generator-form{
     width: 100%;
   }
+
 }
 
 @media (max-width: 340px) {
