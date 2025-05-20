@@ -1,70 +1,87 @@
-// useIDCardGenerator.js
 import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "./lib/firebase";
 
-/**
- * Custom hook for handling ID card generation logic
- */
 const useIDCardGenerator = () => {
   const idCardRef = useRef();
   const idCardRefBack = useRef();
-  const { username, email, rank, profile } = useParams();
+  const { id } = useParams();
 
   const [generated, setGenerated] = useState(false);
   const [formData, setFormData] = useState({
-    username: "",
+    fullName: "",
     email: "",
-    rank: "",
-    profile: "",
+    profilePictureUrl: "",
     profession: "Software Developer",
     id: "",
+    isID: false,
   });
-
-  // Load user data from params or localStorage
+  // Load user data from Firestore by id on mount or id change
   useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      username,
-      email,
-      rank,
-      profile,
-    }));
+    if (!id) return;
 
-    const storedUser = localStorage.getItem(`trybe_id_${username}`);
-    if (storedUser) {
-      const parsed = JSON.parse(storedUser);
-      setFormData(parsed);
-      setGenerated(true);
+    async function fetchUserById() {
+      try {
+        const userDoc = await getDoc(doc(db, "users", id));
+        if (userDoc.exists()) {
+          const data = userDoc.data();
+
+          setFormData({
+            fullName: data.fullName || "",
+            email: data.email || "",
+            rank: data.rank || "",
+            profilePictureUrl: data.profilePictureUrl || "",
+            profession: data.profession || "Software Developer",
+            id: id,
+            isID: data.isID || false, // include isID in formData
+          });
+
+          // check if isID is true
+          setGenerated(!!data.isID);
+        } else {
+          // User not found, reset
+          setFormData({
+            fullName: "",
+            email: "",
+            rank: "",
+            profilePictureUrl: "",
+            profession: "",
+            id: "",
+            isID: false,
+          });
+          setGenerated(false);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setGenerated(false);
+      }
     }
-  }, [username, email, rank, profile]);
 
-  // Handles profession input change
+    fetchUserById();
+  }, [id]);
+
+  // Handle profession change
   const handleChange = (e) => {
     setFormData({ ...formData, profession: e.target.value });
   };
 
-  // Generates a unique ID and saves data to localStorage
-  const handleSubmit = (e) => {
+  // Generate generating QR scan to get profile && set generated true
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const generatedId = Math.floor(10000000 + Math.random() * 90000000);
-    const newFormData = {
-      ...formData,
-      id: `0000${generatedId}`,
-    };
-
-    setFormData(newFormData);
-    setGenerated(true);
-
-    localStorage.setItem(
-      `trybe_id_${formData.username}`,
-      JSON.stringify(newFormData)
-    );
+    try {
+      const userRef = doc(db, "users", formData.id);
+      await updateDoc(userRef, { isID: true });
+      setGenerated(true);
+    } catch (error) {
+      console.error("Error generating ID:", error);
+    }
   };
 
-  // Downloads the front and back of the ID card as a PDF
+  // Your downloadPDF function stays the same
   const downloadPDF = async () => {
     const applyCustomStyles = (cloned, isBack = false) => {
       cloned.style.background = "#000a14";
@@ -159,10 +176,10 @@ const useIDCardGenerator = () => {
     handleChange,
     handleSubmit,
     downloadPDF,
-    username,
-    email,
-    rank,
-    profile,
+    fullName: formData.fullName,
+    email: formData.email,
+    rank: formData.rank,
+    profilePictureUrl: formData.profilePictureUrl,
   };
 };
 
